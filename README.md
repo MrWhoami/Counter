@@ -7,7 +7,8 @@ For appJar, see <http://appjar.info/>.
 To run, type `python Counter.py`.
 
 ## TODO
-[ ] Customize value
-[ ] Add keyboard support
-[ ] Support more than one counters
-[ ] Can set goal and display in percentage 
+- [x] Customize value
+- [ ] Add keyboard support
+- [ ] Save and load
+- [ ] Support more than one counters
+- [ ] Can set goal and display in percentage 
