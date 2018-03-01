@@ -8,7 +8,7 @@ To run, type `python Counter.py`.
 
 ## TODO
 - [x] Customize value
-- [ ] Add keyboard support
+- [x] Add keyboard support
 - [ ] Save and load
 - [ ] Support more than one counters
 - [ ] Can set goal and display in percentage 

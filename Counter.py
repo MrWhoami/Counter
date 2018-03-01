@@ -7,6 +7,7 @@ app = gui("Python Counter", "400x200")
 
 # define functions
 def count(num):
+	"""Basic count function +1, +2, +5"""
 	global total
 	global backup
 	global app
@@ -20,6 +21,7 @@ def count(num):
 	app.setLabel("total", "Total: " + str(total))
 
 def undo(btn):
+	"""Undo the last count"""
 	global total
 	global backup
 	global app
@@ -27,6 +29,7 @@ def undo(btn):
 	app.setLabel("total", "Total: " + str(total))
 
 def customCount(num):
+	"""Count with customized value"""
 	global total
 	global backup
 	global app
@@ -37,6 +40,31 @@ def customCount(num):
 	backup = total
 	total += value
 	app.setLabel("total", "Total: " + str(total))
+
+def keyPress(key):
+	"""Key binding"""
+	global total
+	global backup
+	global app
+	
+	if key == "<z>":
+		backup = total
+		total += 1
+	elif key == "<x>":
+		backup = total
+		total += 2
+	elif key == "<c>":
+		backup = total
+		total += 5
+	elif key == "<space>":
+		try:
+			value = int(app.getEntry("n="))
+		except TypeError:
+			return
+		backup = total
+		total += value
+	app.setLabel("total", "Total: " + str(total))
+
 
 # initialize GUI
 app.setFont(18)
@@ -57,6 +85,12 @@ app.addButton("+n", customCount, 2, 3)
 
 app.addButton("Undo", undo, 3, 0, 4)
 app.setLabelFg("total", "red")
+
+# bind keys
+app.bindKey("<space>", keyPress)
+app.bindKey("<z>", keyPress)
+app.bindKey("<x>", keyPress)
+app.bindKey("<c>", keyPress)
 
 # start the GUI
 app.go()
