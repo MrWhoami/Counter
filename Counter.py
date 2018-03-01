@@ -65,6 +65,22 @@ def keyPress(key):
 		total += value
 	app.setLabel("total", "Total: " + str(total))
 
+def showHelp(name):
+	"""Show a pop-up help window"""
+	global app
+	app.infoBox("Help and About", """Counter
+A counter you can define your step. Developed by Jiyuan Liu.
+
+Shortcuts:
+    z: +1
+    x: +2
+    c: +3
+space: +n""")
+
+def waitDev(name):
+	global app
+	app.infoBox("Oops", name + " is still under construction")
+
 
 # initialize GUI
 app.setFont(18)
@@ -91,6 +107,11 @@ app.bindKey("<space>", keyPress)
 app.bindKey("<z>", keyPress)
 app.bindKey("<x>", keyPress)
 app.bindKey("<c>", keyPress)
+
+# add tool bar
+tools = ["REFRESH", "OPEN", "SAVE", "HELP"]
+tbFunc = [waitDev, waitDev, waitDev, showHelp]
+app.addToolbar(tools, tbFunc, findIcon=True)
 
 # start the GUI
 app.go()
