@@ -65,6 +65,17 @@ def keyPress(key):
 		total += value
 	app.setLabel("total", "Total: " + str(total))
 
+def reset(name):
+	"""Reset the current counter"""
+	global app
+	global total
+	global backup
+	confirmed = app.yesNoBox("Confirmation", "Do you really want to reset your counter?")
+	if confirmed:
+		backup = total
+		total = 0
+		app.setLabel("total", "Total: " + str(total))
+
 def showHelp(name):
 	"""Show a pop-up help window"""
 	global app
@@ -78,6 +89,7 @@ Shortcuts:
 space: +n""")
 
 def waitDev(name):
+	"""Just a space holder"""
 	global app
 	app.infoBox("Oops", name + " is still under construction")
 
@@ -110,7 +122,7 @@ app.bindKey("<c>", keyPress)
 
 # add tool bar
 tools = ["REFRESH", "OPEN", "SAVE", "HELP"]
-tbFunc = [waitDev, waitDev, waitDev, showHelp]
+tbFunc = [reset, waitDev, waitDev, showHelp]
 app.addToolbar(tools, tbFunc, findIcon=True)
 
 # start the GUI

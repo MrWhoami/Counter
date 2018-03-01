@@ -10,5 +10,6 @@ To run, type `python Counter.py`. To run multiple counters, run the following co
 - [x] Customize value
 - [x] Add keyboard support
 - [ ] Save and load
+- [ ] Rename the counter
 - [x] Support more than one counters (Run multiple instance instead)
 - [ ] Can set goal and display in percentage 
