@@ -4,6 +4,7 @@ from appJar import gui
 total = 0
 backup = 0
 app = gui("Python Counter", "400x200")
+title = "Python Counter"
 
 # define functions
 def count(num):
@@ -46,7 +47,6 @@ def keyPress(key):
 	global total
 	global backup
 	global app
-	
 	if key == "<z>":
 		backup = total
 		total += 1
@@ -75,6 +75,54 @@ def reset(name):
 		backup = total
 		total = 0
 		app.setLabel("total", "Total: " + str(total))
+
+def load(btn):
+	"""Save the data in text format"""
+	global app
+	global total
+	global title
+	global backup
+	confirmed = app.yesNoBox("Confirmation", "All the current status will be abandoned. Are you sure?")
+	if not confirmed:
+		return
+	path = app.openBox(title="Load")
+	if path:
+		try:
+			f = open(path, 'r')
+			name = f.readline()
+			cnt = int(f.readline())
+			title = name
+			total = cnt
+			app.setTitle(title)
+			app.setLabel("total", "Total: " + str(total))
+			backup = 0
+		except IOError:
+			app.infoBox("Error", "Cannot read " + path)
+		except:
+			app.infoBox("Error", path + " has wrong format")
+
+def save(btn):
+	"""Save the data in text format"""
+	global app
+	global total
+	global title
+	path = app.saveBox(title="Save", fileName=title, fileExt=".txt")
+	if path:
+		try:
+			f = open(path, 'w')
+			f.write(title + "\n" + str(total))
+		except IOError:
+			app.infoBox("Error", "Cannot write to " + path)
+
+
+def setName(btn):
+	"""Set the name for the app"""
+	global app
+	global title
+	name = app.stringBox("Rename Counter", "Please input a new name for the counter")
+	if name:
+		app.setTitle(name)
+		title = name
 
 def showHelp(name):
 	"""Show a pop-up help window"""
@@ -121,8 +169,8 @@ app.bindKey("<x>", keyPress)
 app.bindKey("<c>", keyPress)
 
 # add tool bar
-tools = ["REFRESH", "OPEN", "SAVE", "HELP"]
-tbFunc = [reset, waitDev, waitDev, showHelp]
+tools = ["REFRESH", "OPEN", "SAVE", "SETTINGS", "HELP"]
+tbFunc = [reset, load, save, setName, showHelp]
 app.addToolbar(tools, tbFunc, findIcon=True)
 
 # start the GUI
